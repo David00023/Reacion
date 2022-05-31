@@ -3,19 +3,23 @@ let time = 0
 let score_a = 0
 let score_b = 0
 let show_time = 0
-input.onPinPressed(TouchPin.P0, function () {
+input.onButtonPressed(Button.A, function () {
     basic.pause(randint(3000, 6000))
     game_started = true
     time = input.runningTime()
+    if (game_started == true) {
+        basic.showIcon(IconNames.Heart)
+        basic.pause(1000)
+    }
 })
 input.onPinPressed(TouchPin.P2, function () {
     if (game_started == false) {
         basic.showIcon(IconNames.No)
         game_started = false
         basic.pause(1000)
+        basic.showString("A")
+        basic.pause(1000)
     }
-    basic.showString("A")
-    basic.pause(1000)
 })
 input.onButtonPressed(Button.AB, function () {
     score_a = 0
@@ -26,15 +30,11 @@ input.onPinPressed(TouchPin.P1, function () {
         basic.showIcon(IconNames.No)
         game_started = false
         basic.pause(1000)
+        basic.showString("B")
+        basic.pause(1000)
     }
-    basic.showString("B")
-    basic.pause(1000)
 })
 basic.forever(function () {
-    if (game_started == true) {
-        basic.showIcon(IconNames.Heart)
-        basic.pause(5000)
-    }
     while (game_started) {
         if (input.pinIsPressed(TouchPin.P1)) {
             basic.showString("A")
